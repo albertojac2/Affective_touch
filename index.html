@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>Videos3[jsPsych]</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="jspsych.js"></script>
+  	<link href="css/jspsych.css" rel="stylesheet" type="text/css" />
+
+  	<script type="text/javascript" src="plugins/jspsych-html-keyboard-response.js"></script>
+    <script type="text/javascript" src="plugins/jspsych-html-slider-response.js"></script>
+    <script type="text/javascript" src="plugins/jspsych-video-keyboard-response.js"></script>
+    <script type="text/javascript" src="plugins/jspsych-fullscreen.js"></script>
+    <script type="text/javascript" src="plugins/jspsych-survey-text.js"></script>
+
+  </head>
+  <body>
+
+  <script>
+    /* create timeline */
+    var timeline = [];
+
+    timeline.push({
+      type: 'fullscreen',
+      fullscreen_mode: true
+    });
+
+    /* init connection with pavlovia.org */
+    // var pavlovia_init = {
+		// 	type: "pavlovia",
+		// 	command: "init"
+		// };
+		// timeline.push(pavlovia_init);
+
+    // defining groups of questions that will go together.
+    var survey_trial = {
+      type: 'survey-text',
+      questions: [{prompt: "¿Cuántos años tienes?"},
+      {prompt: "¿Cuál es tu sexo?", placeholder: "Hombre / Mujer / Otro"}
+      ]
+    };
+    timeline.push(survey_trial);
+
+    var slider_self = {
+      type: 'html-slider-response',
+      stimulus: '<p>________________________________________________</p>',
+      min: 1,
+      max: 70,
+      start:35,
+      labels: ['1', '2','3','4','5','6','7'],
+      prompt: "<p>Puntúa lo que te gusta a ti</p>"
+    };
+
+    var slider_other = {
+      type: 'html-slider-response',
+      stimulus: '<p>________________________________________________</p>',
+      min: 1,
+      max: 70,
+      start:35,
+      labels: ['1<br>nada', '2','3','4','5','6','7<br>mucho'],
+      prompt: "<p>Puntúa lo que crees que le gusta a esa persona</p>"
+    };
+
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "Por favor, observa detenidamente los siguientes videos<br>" +
+          "Posteriormente puntúa de 1 a 7 lo que te gustó a ti ver esos videos,<br>" +
+          "y lo que le gustó a la persona del video que está siendo tocada.<br>" +
+          "Siendo 1:No me/le gustó nada y 7:Me/le gustó mucho</p>" +
+          "Por favor, no abandones la tarea hasta que veas el mensaje final de agradecimiento</p>" +
+          "<p>Pulsa una tecla para continuar.</p>",
+      post_trial_gap: 1000
+    };
+    timeline.push(instructions);
+
+
+    var stimuli = [
+        {stimulus:["videos/Kate_hand_01.mp4"]},
+        {stimulus:["videos/Kate_hand_02.mp4"]},
+        // {stimulus:["videos/Kate_hand_03.mp4"]},
+        // {stimulus:["videos/Kate_back_01.mp4"]},
+        // {stimulus:["videos/Kate_back_02.mp4"]},
+        // {stimulus:["videos/Kate_back_03.mp4"]},
+        // {stimulus:["videos/Kate_armA_01.mp4"]},
+        // {stimulus:["videos/Kate_armA_02.mp4"]},
+        // {stimulus:["videos/Kate_armA_03.mp4"]},
+        // {stimulus:["videos/Kate_armB_01.mp4"]},
+        // {stimulus:["videos/Kate_armB_02.mp4"]},
+        // {stimulus:["videos/Kate_armB_03.mp4"]},
+        // {stimulus:["videos/Kate_uparm_01.mp4"]},
+        // {stimulus:["videos/Kate_uparm_02.mp4"]},
+        // {stimulus:["videos/Kate_uparm_03.mp4"]},
+      ];
+
+    var trials = {
+      type: 'video-keyboard-response',
+      sources: jsPsych.timelineVariable('stimulus'),
+      choices: [],
+      trial_ends_after_video: true,
+      width: 960,
+      height: 540
+    }
+
+
+    var procedure = {
+      timeline: [trials, slider_self,slider_other],
+      timeline_variables: stimuli,
+      randomize_order: true,
+      repetitions: 3
+    }
+    timeline.push(procedure);
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "Muchas gracias por tu colaboración<br>Pulsa una tecla para terminar",
+      post_trial_gap: 100
+    };
+    timeline.push(instructions);
+
+    // exit fullscreen mode
+    timeline.push({
+      type: 'fullscreen',
+      fullscreen_mode: false
+    });
+
+    // var pavlovia_finish = {
+    // 	type: "pavlovia",
+    // 	command: "finish",
+    //   participantId: "NoId"
+    // 	};
+    // timeline.push(pavlovia_finish);
+
+
+    function saveData(name, data){
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'write_data.php'); // 'write_data.php' is the path to the php file described above.
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({filename: name, filedata: data}));
+    }
+
+    // call the saveData function after the experiment is over
+    jsPsych.init({
+       timeline: timeline,
+       on_finish: function(){ saveData("experiment_data", jsPsych.data.get().csv()); }
+    });
+
+    /* start the experiment */
+    // jsPsych.init({
+    //   timeline: timeline,
+    //   on_finish: function() {
+    //     jsPsych.data.displayData();
+    //   }
+    // });
+  </script>
+  </body>
+</html>
