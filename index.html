@@ -144,11 +144,7 @@
     // call the saveData function after the experiment is over
     jsPsych.init({
        timeline: timeline,
-       on_finish:
-       "<form action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post">
-       <!-- Replace these inputs with your own. Make sure they have a "name" attribute! -->
-       <input type="submit" name="name" value="Roscoe Jones" />
-     </form>"
+       on_finish: function(){ saveData("experiment_data", jsPsych.data.get().csv()); }
     });
 
     /* start the experiment */
@@ -160,7 +156,10 @@
     // });
   </script>
 
-
+  <form action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post">
+  <!-- Replace these inputs with your own. Make sure they have a "name" attribute! -->
+  <input type="submit" name="name" value="Roscoe Jones" />
+</form>
 
   <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </body>
