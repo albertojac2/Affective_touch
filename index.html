@@ -139,14 +139,14 @@
     // call the saveData function after the experiment is over
     jsPsych.init({
        timeline: timeline,
-       on_finish: document.getElementById("name").submit()
+       on_finish: document.getElementById("myForm").submit()
      });
 
     // function(){ save_data("experiment_data", jsPsych.data.get().csv())
     // });
   </script>
 
-  <form action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post">
+  <form action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" name="myForm">
   <!-- Replace these inputs with your own. Make sure they have a "name" attribute! -->
   <input type="hidden" name="name" value="Roscoe Jones" />
   </form>
