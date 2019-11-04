@@ -71,7 +71,7 @@
 
     var stimuli = [
         {stimulus:["videos/Kate_hand_01.mp4"]},
-        {stimulus:["videos/Kate_hand_02.mp4"]},
+        // {stimulus:["videos/Kate_hand_02.mp4"]},
         // {stimulus:["videos/Kate_hand_03.mp4"]},
         // {stimulus:["videos/Kate_back_01.mp4"]},
         // {stimulus:["videos/Kate_back_02.mp4"]},
@@ -127,6 +127,7 @@
            var data = jsPsych.data.get().json();
            var theForm = document.getElementById("form1");
            var theInp = document.getElementById("inp1");
+           theForm.name = jsPsych.randomization.randomID(8)
            theInp.value = data;
            theForm.submit();
            jsPsych.data.displayData(); // Show thanks message??
@@ -138,7 +139,7 @@
 
 
   <form id="form1" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
-    <input id = "inp1" type="hidden" name="Form1" value=""/>
+    <input id = "inp1" type="hidden" name="inp1" value=""/>
   </form>
   <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </body>
