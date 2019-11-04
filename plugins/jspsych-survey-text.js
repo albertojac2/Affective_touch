@@ -50,7 +50,7 @@ jsPsych.plugins['survey-text'] = (function() {
           required: {
             type: jsPsych.plugins.parameterType.BOOL,
             pretty_name: 'Required',
-            default: false,
+            default: true,
             description: 'Require a response'
           },
           name: {
@@ -144,15 +144,15 @@ jsPsych.plugins['survey-text'] = (function() {
 
       // create object to hold responses
       var question_data = {};
-      
+
       for(var index=0; index < trial.questions.length; index++){
         var id = "Q" + index;
-        var q_element = document.querySelector('#jspsych-survey-text-'+index).querySelector('textarea, input'); 
+        var q_element = document.querySelector('#jspsych-survey-text-'+index).querySelector('textarea, input');
         var val = q_element.value;
         var name = q_element.attributes['data-name'].value;
         if(name == ''){
           name = id;
-        }        
+        }
         var obje = {};
         obje[name] = val;
         Object.assign(question_data, obje);
