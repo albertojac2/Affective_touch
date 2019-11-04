@@ -130,7 +130,9 @@
       timeline: timeline,
       on_finish: function submitform()
       {
+           var data = jsPsych.data.get().json();
            var theForm = document.getElementById("form1");
+           theForm.value = data;
            theForm.action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra"
            theForm.submit();
       }
