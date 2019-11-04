@@ -19,10 +19,10 @@
     /* create timeline */
     var timeline = [];
 
-    timeline.push({
-      type: 'fullscreen',
-      fullscreen_mode: true
-    });
+    // timeline.push({
+    //   type: 'fullscreen',
+    //   fullscreen_mode: true
+    // });
 
     /* init connection with pavlovia.org */
     // var pavlovia_init = {
@@ -75,9 +75,9 @@
     timeline.push(instructions);
 
 
-    var stimuli = [
-        {stimulus:["videos/Kate_hand_01.mp4"]},
-        {stimulus:["videos/Kate_hand_02.mp4"]},
+    // var stimuli = [
+    //     {stimulus:["videos/Kate_hand_01.mp4"]},
+    //     {stimulus:["videos/Kate_hand_02.mp4"]},
         // {stimulus:["videos/Kate_hand_03.mp4"]},
         // {stimulus:["videos/Kate_back_01.mp4"]},
         // {stimulus:["videos/Kate_back_02.mp4"]},
@@ -91,39 +91,39 @@
         // {stimulus:["videos/Kate_uparm_01.mp4"]},
         // {stimulus:["videos/Kate_uparm_02.mp4"]},
         // {stimulus:["videos/Kate_uparm_03.mp4"]},
-      ];
+    //   ];
+    //
+    // var trials = {
+    //   type: 'video-keyboard-response',
+    //   sources: jsPsych.timelineVariable('stimulus'),
+    //   choices: [],
+    //   trial_ends_after_video: true,
+    //   width: 960,
+    //   height: 540
+    // }
+    //
+    //
+    // var procedure = {
+    //   timeline: [trials, slider_self,slider_other],
+    //   timeline_variables: stimuli,
+    //   randomize_order: true,
+    //   repetitions: 1
+    // }
+    // timeline.push(procedure);
 
-    var trials = {
-      type: 'video-keyboard-response',
-      sources: jsPsych.timelineVariable('stimulus'),
-      choices: [],
-      trial_ends_after_video: true,
-      width: 960,
-      height: 540
-    }
+    // /* define instructions trial */
+    // var instructions = {
+    //   type: "html-keyboard-response",
+    //   stimulus: "Muchas gracias por tu colaboración<br>Pulsa una tecla para terminar",
+    //   post_trial_gap: 100
+    // };
+    // timeline.push(instructions);
 
-
-    var procedure = {
-      timeline: [trials, slider_self,slider_other],
-      timeline_variables: stimuli,
-      randomize_order: true,
-      repetitions: 1
-    }
-    timeline.push(procedure);
-
-    /* define instructions trial */
-    var instructions = {
-      type: "html-keyboard-response",
-      stimulus: "Muchas gracias por tu colaboración<br>Pulsa una tecla para terminar",
-      post_trial_gap: 100
-    };
-    timeline.push(instructions);
-
-    // exit fullscreen mode
-    timeline.push({
-      type: 'fullscreen',
-      fullscreen_mode: false
-    });
+    // // exit fullscreen mode
+    // timeline.push({
+    //   type: 'fullscreen',
+    //   fullscreen_mode: false
+    // });
 
     // call the saveData function after the experiment is over
     jsPsych.init({
