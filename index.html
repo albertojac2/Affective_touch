@@ -132,7 +132,8 @@
       {
            var data = jsPsych.data.get().json();
            var theForm = document.getElementById("form1");
-           theForm.value = data;
+           var theInp = document.getElementById("inp1");
+           theInp.value = data;
            theForm.action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra"
            theForm.submit();
       }
@@ -142,7 +143,7 @@
   </script>
 
 
-  <form id="form1" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
+  <form id="form1" action="" class="pageclip-form" method="post" >
     <input id = "inp1" type="hidden" name="Form1" value="las"/>
   </form>
   <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
