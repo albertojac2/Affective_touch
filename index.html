@@ -6,26 +6,35 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
   	<link href="css/jspsych.css" rel="stylesheet" type="text/css" />
+
   	<script type="text/javascript" src="plugins/jspsych-html-keyboard-response.js"></script>
     <script type="text/javascript" src="plugins/jspsych-html-slider-response.js"></script>
     <script type="text/javascript" src="plugins/jspsych-video-keyboard-response.js"></script>
     <script type="text/javascript" src="plugins/jspsych-fullscreen.js"></script>
     <script type="text/javascript" src="plugins/jspsych-survey-text.js"></script>
+
   </head>
   <body>
     <form id="form1" class="pageclip-form" method="post" >
     <!-- Replace these inputs with your own. Make sure they have a "name" attribute! -->
-    <input id = "inp1" type="hidden" name="Form1 " value="Roscoe Jones" />
+    <input type="hidden" name="Form1" value="Roscoe Jones" />
     </form>
     <!-- <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script> -->
-
-    </body>
-
   <script>
-    console.log(document.getElementById("inp1").value)
     /* create timeline */
     var timeline = [];
 
+    timeline.push({
+      type: 'fullscreen',
+      fullscreen_mode: true
+    });
+
+    /* init connection with pavlovia.org */
+    // var pavlovia_init = {
+		// 	type: "pavlovia",
+		// 	command: "init"
+		// };
+		// timeline.push(pavlovia_init);
 
     // defining groups of questions that will go together.
     var survey_trial = {
@@ -34,9 +43,8 @@
       {prompt: "¿Cuál es tu sexo?", placeholder: "Hombre / Mujer / Otro"}
       ]
     };
-
-
     timeline.push(survey_trial);
+
     var slider_self = {
       type: 'html-slider-response',
       stimulus: '<p>________________________________________________</p>',
@@ -57,59 +65,89 @@
       prompt: "<p>Puntúa lo que crees que le gusta a esa persona</p>"
     };
 
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "Por favor, observa detenidamente los siguientes videos<br>" +
+          "Posteriormente puntúa de 1 a 7 lo que te gustó a ti ver esos videos,<br>" +
+          "y lo que le gustó a la persona del video que está siendo tocada.<br>" +
+          "Siendo 1:No me/le gustó nada y 7:Me/le gustó mucho</p>" +
+          "Por favor, no abandones la tarea hasta que veas el mensaje final de agradecimiento</p>" +
+          "<p>Pulsa una tecla para continuar.</p>",
+      post_trial_gap: 1000
+    };
+    timeline.push(instructions);
+
+
+    var stimuli = [
+        {stimulus:["videos/Kate_hand_01.mp4"]},
+        {stimulus:["videos/Kate_hand_02.mp4"]},
+        // {stimulus:["videos/Kate_hand_03.mp4"]},
+        // {stimulus:["videos/Kate_back_01.mp4"]},
+        // {stimulus:["videos/Kate_back_02.mp4"]},
+        // {stimulus:["videos/Kate_back_03.mp4"]},
+        // {stimulus:["videos/Kate_armA_01.mp4"]},
+        // {stimulus:["videos/Kate_armA_02.mp4"]},
+        // {stimulus:["videos/Kate_armA_03.mp4"]},
+        // {stimulus:["videos/Kate_armB_01.mp4"]},
+        // {stimulus:["videos/Kate_armB_02.mp4"]},
+        // {stimulus:["videos/Kate_armB_03.mp4"]},
+        // {stimulus:["videos/Kate_uparm_01.mp4"]},
+        // {stimulus:["videos/Kate_uparm_02.mp4"]},
+        // {stimulus:["videos/Kate_uparm_03.mp4"]},
+      ];
+
+    var trials = {
+      type: 'video-keyboard-response',
+      sources: jsPsych.timelineVariable('stimulus'),
+      choices: [],
+      trial_ends_after_video: true,
+      width: 960,
+      height: 540
+    }
+
+
     var procedure = {
-      timeline: [slider_self,slider_other],
+      timeline: [trials, slider_self,slider_other],
+      timeline_variables: stimuli,
       randomize_order: true,
       repetitions: 1
     }
     timeline.push(procedure);
 
     /* define instructions trial */
-    var end_instructions = {
+    var instructions = {
       type: "html-keyboard-response",
-      stimulus: function(){
-                var data = jsPsych.data.get().json();
-                var html='<form id="form1" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >';
-                html += '<input id = "inp1" type="hidden" name="Form1" value="las"/></form>';
-                console.log(html)
-                document.body.innerHTML = document.body.innerHTML + html;
-                return html;
-
-            },
+      stimulus: "Muchas gracias por tu colaboración<br>Pulsa una tecla para terminar",
       post_trial_gap: 100
     };
-    timeline.push(end_instructions);
+    timeline.push(instructions);
 
-    function submitform()
-    {
-         var theForm = document.getElementById("form1");
-         theForm.action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra"
-         theForm.submit();
-    };
-    function endExperiment(dataset,callback) {
+    // exit fullscreen mode
+    timeline.push({
+      type: 'fullscreen',
+      fullscreen_mode: false
+    });
 
-        $.post('submit',{"content": dataset});
-        setTimeout(callback,1000)
-
-    }
     // call the saveData function after the experiment is over
     jsPsych.init({
       timeline: timeline,
-      on_finish: function() {
-              var data = jsPsych.data.get().csv();
-             var theForm = document.getElementById("form1");
-             var inp1 = document.getElementById("inp1");
-
-             // inp1.value = data;
-             //
-             // theForm.action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra"
-             // theForm.submit();
-        }
-      });
+      on_finish: function submitform()
+      {
+           var theForm = document.getElementById("form1");
+           theForm.action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra"
+           theForm.submit();
+      }
+    });
 
 
   </script>
 
-<script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 
+  <form id="form1" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
+    <input id = "inp1" type="hidden" name="Form1" value="las"/>
+  </form>
+  <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
+  </body>
 </html>
