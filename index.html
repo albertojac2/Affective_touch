@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>VideosTouch[jsPsych]</title>
+    <title>VideosTouch2[jsPsych]</title>
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
   	<link href="css/jspsych.css" rel="stylesheet" type="text/css" />
@@ -130,9 +130,10 @@
            var theForm = document.getElementById("form1");
            var theInp = document.getElementById("inp1");
            var subId = document.getElementById("inp2");
+           var submit = document.getElementById("Submit");
            subId.value = jsPsych.randomization.randomID(8)
            theInp.value = data;
-           theForm.submit();
+           submit.submit();
            jsPsych.data.displayData(); // Show thanks message??
       }
     });
@@ -144,7 +145,7 @@
   <form id="form1" target="_blank" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
     <input id = "inp1" type="hidden" name="inp1" value=""/>
     <input id = "inp2" type="hidden" name="SubId" value=""/>
-    <input type="submit" value="">
+    <input type="submit" name="Submit" value="">
   </form>
   <!--<script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>-->
   </body>
