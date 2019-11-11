@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Videos7[jsPsych]</title>
+    <title>Videos8[jsPsych]</title>
 
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
@@ -128,9 +128,10 @@
       on_finish: function submitform()
       {
         var data = jsPsych.data.get().json();
-        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', data, function (error, response) {
-          console.log('saved?', !!error, '; response:', error || response)
-      })
+        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', data)
+      //   , function (error, response) {
+      //     console.log('saved?', !!error, '; response:', error || response)
+      // })
     }
     });
     //   function submitform()
