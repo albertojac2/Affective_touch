@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Videos8[jsPsych]</title>
+    <title>Videos6[jsPsych]</title>
 
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
@@ -13,7 +13,7 @@
     <script type="text/javascript" src="plugins/jspsych-video-keyboard-response.js"></script>
     <script type="text/javascript" src="plugins/jspsych-fullscreen.js"></script>
     <script type="text/javascript" src="plugins/jspsych-survey-text.js"></script>
-    <!-- <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script> -->
+    <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </head>
   <body>
   <script>
@@ -127,9 +127,15 @@
       timeline: timeline,
       on_finish: function submitform()
       {
-        var data = jsPsych.data.get().json();
-        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', data)
-      //   , function (error, response) {
+        // var data = jsPsych.data.get().json();
+        var data = {
+          name: 'Billy Jean',
+          email: 'billy@example.com'
+        }
+        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'contact', data, function (error, response) {
+          console.log('saved?', !!error, '; response:', error || response)
+        })
+      //   Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'Default', data, function (error, response) {
       //     console.log('saved?', !!error, '; response:', error || response)
       // })
     }
@@ -156,6 +162,5 @@
     <input id = "inp1" type="hidden" name="inp1" value=""/>
     <input id = "inp2" type="hidden" name="SubId" value=""/>
   </form> -->
-  <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </body>
 </html>
