@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Videos1[jsPsych]</title>
+    <title>Videos3[jsPsych]</title>
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
   	<link href="css/jspsych.css" rel="stylesheet" type="text/css" />
@@ -126,26 +126,34 @@
       timeline: timeline,
       on_finish: function submitform()
       {
-           var data = jsPsych.data.get().json();
-           var theForm = document.getElementById("form1");
-           var theInp = document.getElementById("inp1");
-           var subId = document.getElementById("inp2");
-           subId.value = jsPsych.randomization.randomID(8)
-           theInp.value = data;
-           theForm.submit();
-           jsPsych.data.displayData(); // Show thanks message??
-           window.open("http://google.es/", "_top" )
-      }
+        var data = jsPsych.data.get().json();
+        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'contact', data, function (error, response) {
+          console.log('saved?', !!error, '; response:', error || response)
+      })
+    }
     });
+    //   function submitform()
+    //   {
+    //        var data = jsPsych.data.get().json();
+    //        var theForm = document.getElementById("form1");
+    //        var theInp = document.getElementById("inp1");
+    //        var subId = document.getElementById("inp2");
+    //        subId.value = jsPsych.randomization.randomID(8)
+    //        theInp.value = data;
+    //        theForm.submit();
+    //        jsPsych.data.displayData(); // Show thanks message??
+    //        window.open("http://google.es/", "_top" )
+    //   }
+    // });
 
 
   </script>
 
 
-  <form id="form1" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
+  <!-- <form id="form1" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
     <input id = "inp1" type="hidden" name="inp1" value=""/>
     <input id = "inp2" type="hidden" name="SubId" value=""/>
-  </form>
+  </form> -->
   <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </body>
 </html>
