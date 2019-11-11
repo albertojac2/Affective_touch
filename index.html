@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Videos7[jsPsych]</title>
+    <title>Videos9[jsPsych]</title>
 
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
@@ -127,7 +127,7 @@
       timeline: timeline,
       on_finish: function submitform()
       {
-        var data = jsPsych.data.get().json();
+        var data = jsPsych.data.get().csv();
         var data2 = JSON.stringify(data)
         console.log(data2)
         Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'default', data2, function (error, response) {
