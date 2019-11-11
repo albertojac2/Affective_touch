@@ -2,11 +2,8 @@
 <html lang="en">
 
   <head>
-<<<<<<< HEAD
-    <title>Videos3[jsPsych]</title>
-=======
-    <title>VideosTouch3[jsPsych]</title>
->>>>>>> b1b36abd16d3b343333188c52041162d1b92495b
+    <title>Videos4[jsPsych]</title>
+
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
   	<link href="css/jspsych.css" rel="stylesheet" type="text/css" />
@@ -16,7 +13,7 @@
     <script type="text/javascript" src="plugins/jspsych-video-keyboard-response.js"></script>
     <script type="text/javascript" src="plugins/jspsych-fullscreen.js"></script>
     <script type="text/javascript" src="plugins/jspsych-survey-text.js"></script>
-
+    <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </head>
   <body>
   <script>
@@ -131,7 +128,7 @@
       on_finish: function submitform()
       {
         var data = jsPsych.data.get().json();
-        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'contact', data, function (error, response) {
+        Pageclip.send('https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'contact', data, function (error, response) {
           console.log('saved?', !!error, '; response:', error || response)
       })
     }
