@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Videos[jsPsych]</title>
+    <title>Videos2[jsPsych]</title>
 
     <meta charset="UTF-8">
     <script type="text/javascript" src="jspsych.js"></script>
@@ -175,10 +175,10 @@
         Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'default', data, function (error, response) {
           // console.log('saved?', !!error, '; response:', error || response),
           console.log(error);
-          if (error==false) {
-          window.alert("Thankyou! The data was sucessfully submitted");
+          if (error==true) {
+          window.alert("The data was not submitted. Please contact with the researcher for information");
         } else {
-          window.alert ("The data was not submitted. Please contact with the researcher for information");
+          window.alert ("Thankyou! The data was sucessfully submitted");
         };
         })
       }
