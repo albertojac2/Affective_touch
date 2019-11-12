@@ -117,10 +117,10 @@
 
     var stimuli = [
        {stimulus:["videos/Kate_hand_01.mp4"]},
-       {stimulus:["videos/Kate_hand_02.mp4"]},
-       {stimulus:["videos/Kate_hand_03.mp4"]},
-       {stimulus:["videos/Kate_back_01.mp4"]},
-       {stimulus:["videos/Kate_back_02.mp4"]},
+       // {stimulus:["videos/Kate_hand_02.mp4"]},
+       // {stimulus:["videos/Kate_hand_03.mp4"]},
+       // {stimulus:["videos/Kate_back_01.mp4"]},
+       // {stimulus:["videos/Kate_back_02.mp4"]},
         // {stimulus:["videos/Kate_back_03.mp4"]},
         // {stimulus:["videos/Kate_armA_01.mp4"]},
         // {stimulus:["videos/Kate_armA_02.mp4"]},
@@ -171,9 +171,15 @@
       on_finish: function submitform()
       {
         let data = {subject: jsPsych.randomization.randomID(8), results: jsPsych.data.get().csv()};
-        console.log(data);
+
         Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'default', data, function (error, response) {
-          console.log('saved?', !!error, '; response:', error || response)
+          // console.log('saved?', !!error, '; response:', error || response),
+          console.log(error);
+          if (error==false) {
+          window.alert("Thankyou! The data was sucessfully submitted");
+        } else {
+          window.alert ("The data was not submitted. Please contact with the researcher for information");
+        };
         })
       }
     });
