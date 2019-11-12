@@ -13,6 +13,7 @@
     <script type="text/javascript" src="plugins/jspsych-video-keyboard-response.js"></script>
     <script type="text/javascript" src="plugins/jspsych-fullscreen.js"></script>
     <script type="text/javascript" src="plugins/jspsych-survey-text.js"></script>
+    <script type="text/javascript" src="plugins/jspsych-survey-multi-select.js"></script>
     <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
   </head>
   <body>
@@ -23,7 +24,7 @@
     timeline.push({
       type: 'fullscreen',
       fullscreen_mode: true,
-      message: '<p>El experimento se realizará en pantalla completa</p>'
+      message: '<p>The experiment will be conducted in full screen</p>'
     });
 
 
@@ -31,53 +32,95 @@
     var survey_trial = {
       type: 'survey-text',
       required: true,
-      questions: [{prompt: "¿Cuántos años tienes?"},
-      {prompt: "¿Cuál es tu sexo?", placeholder: "Hombre / Mujer / Otro"}
+      questions: [{prompt: "How old are you?"},
+      {prompt: "<br>Sex", placeholder: "Female/ Male/ Other"},
+      {prompt: "<br>Ethnic group", placeholder: "ex: Asian, Arab, Black, European, Indian, Mestizo..."},
+      {prompt: "<br>Nationality"},
+      {prompt: "<br>Do have a serious or long standing medical condition (like diabetes, heart disease, rheumatoid arthritis, migraine, chronic pain, eg. back pain, asthma or other). If no, just type No. If you have other medical condition, please specify"},
+       {prompt: "<br>Please specify if you have a neurological disorder? If no, just type No"},
+       {prompt: "<br>Are currently taking any medication? If no, just type No. If yes, please specify"},
+       {prompt: "<br>How many children do you have? If so, specify their ages and how many children live with you<br><strong>example 1:</strong> 0 <br><strong>example 2:</strong> 3 children (19, 13 and 10 y.o.), living with 2"}
       ]
     };
-    timeline.push(survey_trial);
 
-    // var slider_self = {
-    //   type: 'html-slider-response',
-    //   stimulus: '<p>________________________________________________</p>',
-    //   min: 1,
-    //   max: 70,
-    //   start:35,
-    //   labels: ['1', '2','3','4','5','6','7'],
-    //   prompt: "<p>Puntúa lo que te gusta a ti</p>"
-    // };
-    //
-    // var slider_other = {
-    //   type: 'html-slider-response',
-    //   stimulus: '<p>________________________________________________</p>',
-    //   min: 1,
-    //   max: 70,
-    //   start:35,
-    //   labels: ['1<br>nada', '2','3','4','5','6','7<br>mucho'],
-    //   prompt: "<p>Puntúa lo que crees que le gusta a esa persona</p>"
-    // };
-    //
-    //
-    // /* define instructions trial */
-    // var instructions = {
-    //   type: "html-keyboard-response",
-    //   stimulus: "Por favor, observa detenidamente los siguientes videos<br>" +
-    //       "Posteriormente puntúa de 1 a 7 lo que te gustó a ti ver esos videos,<br>" +
-    //       "y lo que le gustó a la persona del video que está siendo tocada.<br>" +
-    //       "Siendo 1:No me/le gustó nada y 7:Me/le gustó mucho</p>" +
-    //       "Por favor, no abandones la tarea hasta que veas el mensaje final de agradecimiento</p>" +
-    //       "<p>Pulsa una tecla para continuar.</p>",
-    //   post_trial_gap: 1000
-    // };
-    // timeline.push(instructions);
-    //
-    //
-    // var stimuli = [
-    //     {stimulus:["videos/Kate_hand_01.mp4"]},
-        // {stimulus:["videos/Kate_hand_02.mp4"]},
-        // {stimulus:["videos/Kate_hand_03.mp4"]},
-        // {stimulus:["videos/Kate_back_01.mp4"]},
-        // {stimulus:["videos/Kate_back_02.mp4"]},
+    var employ = [
+      "Employed (full time)",
+      "Employed (part time)",
+      "Self employed",
+      "Student (not employed)",
+      "Not employed",
+      "Retired",
+      "Other"
+    ];
+    var marital = [
+      "Married",
+      "Single",
+      "Divorced",
+      "Widowed",
+      "Other"
+    ];
+
+    var multi_select_block = {
+    type: 'survey-multi-select',
+    questions: [
+      {
+        prompt: "<strong>Employment status</strong>",
+        options: employ,
+        horizontal: false,
+        required: true,
+        name: 'Employ'
+      },
+      {
+        prompt: "<strong>Marital status</strong>",
+        options: marital,
+        horizontal: false,
+        required: true,
+        name: 'Marital'
+      }
+    ]
+};
+
+
+    timeline.push(survey_trial);
+    timeline.push(multi_select_block);
+
+    var slider_self = {
+      type: 'html-slider-response',
+      stimulus: '<p>How pleasant do you think the action was for the person being touched?</p>',
+      min: 1,
+      max: 70,
+      start:35,
+      labels: ['1<br>very unpleasant', '2','3','4','5','6','7<br>very pleasant'],
+      prompt: ""
+    };
+
+    var slider_other = {
+      type: 'html-slider-response',
+      stimulus: '<p>How much would you like to be touched like this?</p>',
+      min: 1,
+      max: 70,
+      start:35,
+      labels: ['1<br>not at all', '2','3','4','5','6','7<br>very much so'],
+      prompt: ""
+    };
+
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "Instructions text</p>" +
+          "<p>Press a key to begin.</p>",
+      post_trial_gap: 1000
+    };
+    timeline.push(instructions);
+
+
+    var stimuli = [
+       {stimulus:["videos/Kate_hand_01.mp4"]},
+       {stimulus:["videos/Kate_hand_02.mp4"]},
+       {stimulus:["videos/Kate_hand_03.mp4"]},
+       {stimulus:["videos/Kate_back_01.mp4"]},
+       {stimulus:["videos/Kate_back_02.mp4"]},
         // {stimulus:["videos/Kate_back_03.mp4"]},
         // {stimulus:["videos/Kate_armA_01.mp4"]},
         // {stimulus:["videos/Kate_armA_02.mp4"]},
@@ -88,33 +131,33 @@
         // {stimulus:["videos/Kate_uparm_01.mp4"]},
         // {stimulus:["videos/Kate_uparm_02.mp4"]},
         // {stimulus:["videos/Kate_uparm_03.mp4"]},
-      // ];
-    //
-    // var trials = {
-    //   type: 'video-keyboard-response',
-    //   sources: jsPsych.timelineVariable('stimulus'),
-    //   choices: [],
-    //   trial_ends_after_video: true,
-    //   width: 960,
-    //   height: 540
-    // }
-    //
-    //
-    // var procedure = {
-    //   timeline: [trials, slider_self,slider_other],
-    //   timeline_variables: stimuli,
-    //   randomize_order: true,
-    //   repetitions: 1
-    // }
-    // timeline.push(procedure);
+     ];
+
+    var trials = {
+      type: 'video-keyboard-response',
+      sources: jsPsych.timelineVariable('stimulus'),
+      choices: [],
+      trial_ends_after_video: true,
+      width: 960,
+      height: 540
+    }
+
+
+    var procedure = {
+      timeline: [trials, slider_self,slider_other],
+      timeline_variables: stimuli,
+      randomize_order: true,
+      repetitions: 1
+    }
+    timeline.push(procedure);
 
     /* define instructions trial */
-    // var instructions = {
-    //   type: "html-keyboard-response",
-    //   stimulus: "Muchas gracias por tu colaboración<br>Pulsa una tecla para terminar",
-    //   post_trial_gap: 100
-    // };
-    // timeline.push(instructions);
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "Thankyou for your collaboration<br>Press a key to send the results",
+      post_trial_gap: 100
+    };
+    timeline.push(instructions);
 
     // exit fullscreen mode
     timeline.push({
@@ -127,38 +170,15 @@
       timeline: timeline,
       on_finish: function submitform()
       {
-        var data = jsPsych.data.get().csv();
-        let data2 = {name: 'TotalData', email: data};
-        console.log(data2)
-        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'default', data2, function (error, response) {
+        let data = {subject: jsPsych.randomization.randomID(8), results: jsPsych.data.get().csv()};
+        console.log(data);
+        Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'default', data, function (error, response) {
           console.log('saved?', !!error, '; response:', error || response)
         })
-      //   Pageclip.send('JOpA3fUSnKykj1ztXRukbxNcQY4NFhra', 'Default', data, function (error, response) {
-      //     console.log('saved?', !!error, '; response:', error || response)
-      // })
-    }
+      }
     });
-    //   function submitform()
-    //   {
-    //        var data = jsPsych.data.get().json();
-    //        var theForm = document.getElementById("form1");
-    //        var theInp = document.getElementById("inp1");
-    //        var subId = document.getElementById("inp2");
-    //        subId.value = jsPsych.randomization.randomID(8)
-    //        theInp.value = data;
-    //        theForm.submit();
-    //        jsPsych.data.displayData(); // Show thanks message??
-    //        window.open("http://google.es/", "_top" )
-    //   }
-    // });
-
 
   </script>
 
-
-  <!-- <form id="form1" target="_blank" action="https://send.pageclip.co/JOpA3fUSnKykj1ztXRukbxNcQY4NFhra" class="pageclip-form" method="post" >
-    <input id = "inp1" type="hidden" name="inp1" value=""/>
-    <input id = "inp2" type="hidden" name="SubId" value=""/>
-  </form> -->
   </body>
 </html>
